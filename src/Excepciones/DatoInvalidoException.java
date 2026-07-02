@@ -7,8 +7,8 @@ package Excepciones;
  * Aprendé más Java en mi canal: https://www.youtube.com/c/CharlyCimino
  * Encontrá más código en mi repo de GitHub: https://github.com/CharlyCimino
  */
-public class DatoInvalidoExepcion extends Exception{
-    public DatoInvalidoExepcion (String mensaje){
+public class DatoInvalidoException extends Exception{
+    public DatoInvalidoException (String mensaje){
     super(mensaje);
     }
 
