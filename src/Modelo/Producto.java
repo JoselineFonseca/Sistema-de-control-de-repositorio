@@ -16,9 +16,9 @@ public class Producto {
     private double precio;
     private boolean disponible;
     private String descripcion;
-    
+    private String tipo;
     //constructor
-    public Producto (int id, String codigo,String nombre, String categoria, int cantidad, double precio, boolean disponible, String descripcion){
+    public Producto (int id, String codigo,String nombre, String categoria, int cantidad, double precio, boolean disponible, String descripcion,String tipo){
         
         this.id = id;
         this.codigo=codigo;
@@ -27,7 +27,8 @@ public class Producto {
         this.cantidad = cantidad;
         this.precio = precio;
         this.disponible = disponible;
-        this.descripcion = descripcion;    
+        this.descripcion = descripcion;
+        this.tipo=tipo;
     } 
         // getter y setter
         
@@ -49,11 +50,19 @@ public class Producto {
         public double getPrecio(){return precio;}
         public void setPrecio (double precio){this.precio = precio;}
         
-        public boolean getDisponible(){return disponible;}
+        public boolean isDisponible(){return disponible;}
         public void setDisponible (boolean disponible){this.disponible = disponible;}
         
         public String getDescripcion(){return descripcion;}
         public void setDescripcion (String descripcion){this.descripcion = descripcion;}
+        
+        public String getTipo(){
+            return tipo;
+        }
+        
+        public void setTipo(String tipo){
+            this.tipo = tipo;
+        }
         
         @Override
         public String toString (){

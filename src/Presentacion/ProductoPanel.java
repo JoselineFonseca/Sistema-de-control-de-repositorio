@@ -20,7 +20,8 @@ public class ProductoPanel extends javax.swing.JPanel {
      * Creates new form ProductoPanel
      */
     private ProductoNegocio negocio;
-       
+    private ListaPanel listaPanel;
+    
     public ProductoPanel() {
         initComponents();
         negocio= new ProductoNegocio(new ProductoRepositorio());
@@ -294,7 +295,8 @@ public class ProductoPanel extends javax.swing.JPanel {
                 Integer.parseInt(txtCantidad.getText()),
                 Double.parseDouble(txtPrecio.getText()),
                 disponible,
-                txtDescripcion.getText()
+                txtDescripcion.getText(),
+                tipo
         );
         negocio.AgregarProductos(producto);
         JOptionPane.showMessageDialog(this, "Producto guardado correctamente.");
@@ -322,7 +324,29 @@ public class ProductoPanel extends javax.swing.JPanel {
         buttonGroup2.clearSelection();
     
     }//GEN-LAST:event_btnLimpiarActionPerformed
-
+    public void cargarProducto (Producto p){
+        txtcodigo.setText(p.getCodigo());
+        txtNombre.setText(p.getNombre());
+        txtCantidad.setText(String.valueOf(p.getCantidad()));
+        txtPrecio.setText(String.valueOf(p.getPrecio()));
+        txtDescripcion.setText(p.getDescripcion());
+        cbcategoria.setSelectedItem(p.getCategoria());
+        
+        if (p.isDisponible()){
+                jCheckBox1.setSelected(true);
+                jCheckBox2.setSelected(false);
+            }else {
+               jCheckBox1.setSelected(false);
+               jCheckBox2.setSelected(true);
+            }
+            
+            if (p.getTipo().equalsIgnoreCase("Nacional")){
+                Nacional.setSelected(true);
+            }else {
+                jRadioButton1.setSelected(true);
+            }          
+        }
+           
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton Nacional;
@@ -358,3 +382,4 @@ public class ProductoPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtcodigo;
     // End of variables declaration//GEN-END:variables
 }
+
