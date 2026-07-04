@@ -38,6 +38,14 @@ public class ProductoNegocio {
         return repositorio.listar();
     }
     
+    public boolean ExisteCodigo (String codigo){
+        for(Producto p:repositorio.listar()){
+            if (p.getCodigo().equalsIgnoreCase(codigo)){
+                return true;
+            }
+        }
+        return false;
+    }
     //se agregan productos con validaciones
     public void AgregarProductos (Producto producto) throws DatoInvalidoException, ProductoDuplicadoException 
     {

@@ -113,15 +113,22 @@ public class ListaPanel extends javax.swing.JPanel {
             
     }//GEN-LAST:event_btnEditarActionPerformed
 //metodo para cargar la tabla
-    private void cargarTabla(){
+    public void cargarTabla(){
         modelo = (DefaultTableModel) ListaProductos.getModel();
         modelo.setRowCount(0);//limpia la tabla
         
         List<Producto>lista=negocio.getLista();
         int id= 1;
+        
         for (Producto p:lista){
             modelo.addRow(new Object[]{
-                id++,p.getCodigo(),p.getPrecio(),p.isDisponible()? "Sí":"No"
+                id++,
+                p.getCodigo(),
+                p.getNombre(),
+                p.getCategoria(),
+                p.getCantidad(),
+                p.getPrecio(),
+                p.isDisponible()? "Sí":"No"
             });
         }
 

@@ -11,6 +11,12 @@ package Presentacion;
 import javax.swing.*;
 import java.util.logging.Logger;
 import Presentacion.ProductoPanel;
+import Presentacion.ListaPanel;
+import Presentacion.EstadisticaPanel;
+import Modelo.Producto;
+import Negocio.ProductoNegocio;
+import Repositorio.ProductoRepositorio;
+
 public class MainFrame extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainFrame.class.getName());
@@ -19,8 +25,22 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     public MainFrame() {
+        
         initComponents();
-         jTabbedPane2.setComponentAt(0, new ProductoPanel());
+
+        ProductoNegocio negocio = new ProductoNegocio(new Repositorio.ProductoRepositorio());
+    
+    ProductoPanel productoPanel = new ProductoPanel (negocio);
+    
+    ListaPanel listaPanel = new ListaPanel(negocio, productoPanel);
+    
+    EstadisticaPanel estadisticaPanel = new EstadisticaPanel();
+    
+    productoPanel.setListaPanel(listaPanel);
+    
+    TabMenu.setComponentAt(0,productoPanel);//registro menu
+    TabMenu.setComponentAt(1,listaPanel);
+    //TabMenu.setComponentAt(2,estadisticaPanel);
     }
     
 
@@ -34,16 +54,16 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton6 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        btnNuevo = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnOrdenar = new javax.swing.JButton();
+        TabMenu = new javax.swing.JTabbedPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jTabbedPane4 = new javax.swing.JTabbedPane();
         jTabbedPane3 = new javax.swing.JTabbedPane();
+        jTabbedPane4 = new javax.swing.JTabbedPane();
+        btnExportar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -53,29 +73,40 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton1.setText("Nuevo");
-        jButton1.setToolTipText("");
+        btnNuevo.setBackground(new java.awt.Color(153, 153, 153));
+        btnNuevo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnNuevo.setText("Nuevo");
+        btnNuevo.setToolTipText("");
 
-        jButton2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton2.setText("Guardar");
+        btnGuardar.setBackground(new java.awt.Color(153, 153, 153));
+        btnGuardar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnGuardar.setText("Guardar");
 
-        jButton3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton3.setText("Editar");
+        btnEditar.setBackground(new java.awt.Color(153, 153, 153));
+        btnEditar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnEditar.setText("Editar");
 
-        jButton4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton4.setText("Eliminar");
+        btnEliminar.setBackground(new java.awt.Color(153, 153, 153));
+        btnEliminar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnEliminar.setText("Eliminar");
 
-        jButton5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton5.setText("Ordenar");
+        btnOrdenar.setBackground(new java.awt.Color(153, 153, 153));
+        btnOrdenar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnOrdenar.setText("Ordenar");
 
-        jButton7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton7.setText("Exportar");
+        TabMenu.setBackground(new java.awt.Color(255, 153, 153));
+        TabMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTabbedPane2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTabbedPane2.addTab("Registro de productos", jTabbedPane1);
-        jTabbedPane2.addTab("Estadisticas", jTabbedPane4);
-        jTabbedPane2.addTab("Lista de productos", jTabbedPane3);
+        jTabbedPane1.setBackground(new java.awt.Color(0, 102, 255));
+        TabMenu.addTab("Registro de productos", jTabbedPane1);
+
+        jTabbedPane3.setBackground(new java.awt.Color(204, 204, 204));
+        TabMenu.addTab("Lista de productos", jTabbedPane3);
+        TabMenu.addTab("Estadisticas", jTabbedPane4);
+
+        btnExportar.setBackground(new java.awt.Color(153, 153, 153));
+        btnExportar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnExportar.setText("Exportar");
 
         jMenu1.setText("Archivo");
         jMenuBar1.add(jMenu1);
@@ -94,46 +125,45 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTabbedPane2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton4)))
+                .addComponent(btnNuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGuardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEditar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnOrdenar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExportar)
+                .addGap(35, 35, 35)
+                .addComponent(btnEliminar)
                 .addContainerGap(129, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(TabMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(TabMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton5)
-                    .addComponent(jButton7)
-                    .addComponent(jButton4))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .addComponent(btnNuevo)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnEditar)
+                    .addComponent(btnOrdenar)
+                    .addComponent(btnExportar)
+                    .addComponent(btnEliminar))
+                .addGap(23, 23, 23))
         );
 
-        jTabbedPane2.getAccessibleContext().setAccessibleDescription("");
+        TabMenu.getAccessibleContext().setAccessibleName("menu");
+        TabMenu.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
+    
+    
+ 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -157,19 +187,19 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JTabbedPane TabMenu;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnExportar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnOrdenar;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     // End of variables declaration//GEN-END:variables

@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 import Negocio.ProductoNegocio;
 import Modelo.Producto;
 import Repositorio.ProductoRepositorio;
-import Excepciones.*;
 
 public class ProductoPanel extends javax.swing.JPanel {
 
@@ -21,15 +20,20 @@ public class ProductoPanel extends javax.swing.JPanel {
      */
     private ProductoNegocio negocio;
     private ListaPanel listaPanel;
+    private Producto productoEditado = null;
+
     
-    public ProductoPanel() {
-        initComponents();
-        negocio= new ProductoNegocio(new ProductoRepositorio());
+    public ProductoPanel(ProductoNegocio negocio) {
+        this.negocio=negocio;
+        initComponents();       
         cbcategoria.setModel(new javax.swing.DefaultComboBoxModel<>(
     new String[] { "Electrónica", "Ropa", "Alimentos", "Hogar", "Otros" }
 ));
-
     }
+    public void setListaPanel(ListaPanel listaPanel){
+        this.listaPanel = listaPanel;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -298,8 +302,23 @@ public class ProductoPanel extends javax.swing.JPanel {
                 txtDescripcion.getText(),
                 tipo
         );
-        negocio.AgregarProductos(producto);
+        if (productoEditado!=null){
+            negocio.EditarProducto(producto);
+        JOptionPane.showMessageDialog(this, "Producto editado correctamente.");
+        productoEditado = null;
+        }else{
+            if (negocio.ExisteCodigo(producto.getCodigo())){
+                JOptionPane.showMessageDialog(this, "El código ya existe.");
+                return;
+            }
+            negocio.AgregarProductos(producto);
         JOptionPane.showMessageDialog(this, "Producto guardado correctamente.");
+        }
+        
+        if (listaPanel!=null){
+            listaPanel.cargarTabla();
+        }
+        
     }catch (Exception e){
         JOptionPane.showMessageDialog(this,"Error"+e.getMessage(), "Error.",JOptionPane.ERROR_MESSAGE);
     
@@ -344,7 +363,8 @@ public class ProductoPanel extends javax.swing.JPanel {
                 Nacional.setSelected(true);
             }else {
                 jRadioButton1.setSelected(true);
-            }          
+            }
+            productoEditado =p;
         }
            
 
