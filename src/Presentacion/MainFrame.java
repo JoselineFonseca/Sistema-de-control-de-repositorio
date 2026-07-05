@@ -19,6 +19,11 @@ import Repositorio.ProductoRepositorio;
 
 public class MainFrame extends javax.swing.JFrame {
     
+    private ProductoPanel productoPanel;
+    private ListaPanel listaPanel;
+    private EstadisticaPanel estadisticaPanel;
+    private ProductoNegocio negocio;
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainFrame.class.getName());
 
     /**
@@ -28,19 +33,20 @@ public class MainFrame extends javax.swing.JFrame {
         
         initComponents();
 
-        ProductoNegocio negocio = new ProductoNegocio(new Repositorio.ProductoRepositorio());
+       negocio = new ProductoNegocio(new ProductoRepositorio());
     
-    ProductoPanel productoPanel = new ProductoPanel (negocio);
+    productoPanel = new ProductoPanel (negocio);
     
-    ListaPanel listaPanel = new ListaPanel(negocio, productoPanel);
+    listaPanel = new ListaPanel(negocio, productoPanel);
     
-    EstadisticaPanel estadisticaPanel = new EstadisticaPanel();
+    estadisticaPanel = new EstadisticaPanel(negocio);
     
     productoPanel.setListaPanel(listaPanel);
     
     TabMenu.setComponentAt(0,productoPanel);//registro menu
     TabMenu.setComponentAt(1,listaPanel);
-    //TabMenu.setComponentAt(2,estadisticaPanel);
+    TabMenu.setComponentAt(2,estadisticaPanel);
+
     }
     
 
@@ -77,22 +83,47 @@ public class MainFrame extends javax.swing.JFrame {
         btnNuevo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnNuevo.setText("Nuevo");
         btnNuevo.setToolTipText("");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setBackground(new java.awt.Color(153, 153, 153));
         btnGuardar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setBackground(new java.awt.Color(153, 153, 153));
         btnEditar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setBackground(new java.awt.Color(153, 153, 153));
         btnEliminar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnOrdenar.setBackground(new java.awt.Color(153, 153, 153));
         btnOrdenar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnOrdenar.setText("Ordenar");
+        btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrdenarActionPerformed(evt);
+            }
+        });
 
         TabMenu.setBackground(new java.awt.Color(255, 153, 153));
         TabMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -107,6 +138,11 @@ public class MainFrame extends javax.swing.JFrame {
         btnExportar.setBackground(new java.awt.Color(153, 153, 153));
         btnExportar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnExportar.setText("Exportar");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Archivo");
         jMenuBar1.add(jMenu1);
@@ -161,6 +197,53 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        TabMenu.setSelectedIndex(0);
+        productoPanel.limpiarCampos();
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        TabMenu.setSelectedIndex(0);
+        productoPanel.guardarProducto();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        TabMenu.setSelectedIndex(1);
+        productoPanel.editarProducto();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
+        // TODO add your handling code here:
+        if (negocio.getLista()== null|| negocio.getLista().isEmpty()){
+            JOptionPane.showMessageDialog(this, "No hay productos para ordenar.", "Lista vacía", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        negocio.getLista().sort(java.util.Comparator.comparing(Producto ::getNombre));
+        listaPanel.cargarTabla();
+        
+        JOptionPane.showMessageDialog(this, "Productos ordenados correctamente.", "Accion completada", JOptionPane.INFORMATION_MESSAGE);
+            
+    }//GEN-LAST:event_btnOrdenarActionPerformed
+
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        // TODO add your handling code here:
+        if (negocio.getLista()== null|| negocio.getLista().isEmpty()){
+            JOptionPane.showMessageDialog(this, "No hay productos para exportar.", "Lista vacía", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        negocio.exportarEstadisticas("estadisticas.txt");
+        JOptionPane.showMessageDialog(this, "Estadisticas exportadas correctamente","Acción completada", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnExportarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        TabMenu.setSelectedIndex(1);
+        listaPanel.eliminarSeleccionado();
+    }//GEN-LAST:event_btnEliminarActionPerformed
     
     
  

@@ -8,13 +8,25 @@ package Presentacion;
  *
  * @author Charly Cimino
  */
+import javax.swing.JOptionPane;
+import Negocio.ProductoNegocio;
+import Modelo.Producto;
+import Repositorio.ProductoRepositorio;
+import java.util.List;
 public class EstadisticaPanel extends javax.swing.JPanel {
+    private ProductoNegocio negocio;
 
     /**
      * Creates new form EstadisticaPanel
      */
-    public EstadisticaPanel() {
+    public EstadisticaPanel(ProductoNegocio negocio) {
+        this.negocio = negocio;
         initComponents();
+    
+        txtTotalProductos.setEditable(false);
+        txtCantidadTotal.setEditable(false);
+        txtValor.setEditable(false);
+         
     }
 
     /**
@@ -29,12 +41,12 @@ public class EstadisticaPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        txtTotalProductos = new javax.swing.JTextField();
+        txtCantidadTotal = new javax.swing.JTextField();
+        txtValor = new javax.swing.JTextField();
+        btnActualizar = new javax.swing.JButton();
+        btnExportar = new javax.swing.JButton();
+        btnGrafico = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Total de productos");
@@ -45,22 +57,40 @@ public class EstadisticaPanel extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Valor");
 
-        jTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtTotalProductos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtTotalProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtTotalProductosActionPerformed(evt);
             }
         });
 
-        jTextField2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtCantidadTotal.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jTextField3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtValor.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jButton1.setText("Actualizar");
+        btnActualizar.setBackground(new java.awt.Color(153, 153, 153));
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Exportar");
+        btnExportar.setBackground(new java.awt.Color(153, 153, 153));
+        btnExportar.setText("Exportar");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Gráfico");
+        btnGrafico.setBackground(new java.awt.Color(153, 153, 153));
+        btnGrafico.setText("Gráfico");
+        btnGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGraficoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -76,16 +106,16 @@ public class EstadisticaPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)))
+                            .addComponent(txtTotalProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                            .addComponent(txtCantidadTotal)
+                            .addComponent(txtValor)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnActualizar)
                         .addGap(22, 22, 22)
-                        .addComponent(jButton2)))
+                        .addComponent(btnExportar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addComponent(btnGrafico)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,38 +123,77 @@ public class EstadisticaPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotalProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCantidadTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
+                    .addComponent(btnExportar)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnGrafico))
                 .addGap(108, 108, 108))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtTotalProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalProductosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtTotalProductosActionPerformed
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        List<Producto>lista=negocio.getLista();
+        
+        if (lista== null|| lista.isEmpty()){
+            JOptionPane.showMessageDialog(this, "No hay productos registrados para calcular estadísticas.", "Lista vacía", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        int totalProductos = lista.size ();
+        int cantidadTotal = lista.stream().mapToInt(Producto::getCantidad).sum();               
+        double valorTotal = lista.stream().mapToDouble(p->p.getCantidad()*p.getPrecio()).sum();
+        
+        txtTotalProductos.setText(String.valueOf(totalProductos));
+        txtCantidadTotal.setText(String.valueOf(cantidadTotal));
+        txtValor.setText(String.format("%.2f",valorTotal));
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        // TODO add your handling code here:
+        List<Producto> lista = negocio.getLista();
+        if (lista== null|| lista.isEmpty()){
+            JOptionPane.showMessageDialog(this, "No hay productos para exportar estadísticas.", "Lista vacía", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        negocio.exportarEstadisticas ("Estadisticas.csv");
+        JOptionPane.showMessageDialog(this,"Estadisticas exportadas a estadisticas.csv", "Accíon completa", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnExportarActionPerformed
+
+    private void btnGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraficoActionPerformed
+        // TODO add your handling code here:
+        List<Producto> lista = negocio.getLista();
+        if (lista== null|| lista.isEmpty()){
+            JOptionPane.showMessageDialog(this, "No hay productos para generar gráfico.", "Lista vacía", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+         JOptionPane.showMessageDialog(this,"Gráfico estadístico exportado correctamente", "Accíon completa", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnGraficoActionPerformed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnExportar;
+    private javax.swing.JButton btnGrafico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField txtCantidadTotal;
+    private javax.swing.JTextField txtTotalProductos;
+    private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

@@ -327,7 +327,34 @@ public class ProductoPanel extends javax.swing.JPanel {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Editado correctamente.");
+        if (txtcodigo.getText().isEmpty()|| txtNombre.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "No hay ningun dato a editar");
+            return;
+        }
+        try {
+            String categoria = (String)cbcategoria.getSelectedItem();
+        boolean disponible = jCheckBox1.isSelected();
+        String tipo= Nacional.isSelected()? "Nacional": "Importado";
+        Producto producto = new Producto (
+                0,
+                txtcodigo.getText(),
+                txtNombre.getText(),
+                categoria,
+                Integer.parseInt(txtCantidad.getText()),
+                Double.parseDouble(txtPrecio.getText()),
+                disponible,
+                txtDescripcion.getText(),
+                tipo
+        );
+        negocio.EditarProducto(producto);
+        JOptionPane.showMessageDialog(this, "Producto editado correctamente");
+        
+        if (listaPanel != null) {
+            listaPanel.cargarTabla();
+        }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Error al editar:"+ e.getMessage());
+        }       
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -366,7 +393,15 @@ public class ProductoPanel extends javax.swing.JPanel {
             }
             productoEditado =p;
         }
-           
+    public void limpiarCampos(){
+        btnLimpiarActionPerformed(null);
+    }
+    public void guardarProducto(){
+        btnGuardarActionPerformed(null);
+    }
+    public void editarProducto(){
+        btnEditarActionPerformed(null);
+    }       
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton Nacional;

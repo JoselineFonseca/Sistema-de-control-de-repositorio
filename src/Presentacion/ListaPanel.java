@@ -60,6 +60,11 @@ public class ListaPanel extends javax.swing.JPanel {
 
         btnEliminar.setBackground(new java.awt.Color(255, 153, 153));
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setBackground(new java.awt.Color(255, 153, 153));
         btnEditar.setText("Editar");
@@ -112,6 +117,29 @@ public class ListaPanel extends javax.swing.JPanel {
       }
             
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        int fila =ListaProductos.getSelectedRow();
+      if (fila ==-1){
+          JOptionPane.showMessageDialog(this, "Debe seleccionar una fila de la tabla para editar.");
+          return;
+      }
+      String codigo=(String)ListaProductos.getValueAt(fila, 1);
+      
+      int confirmacion = JOptionPane.showConfirmDialog(this, "¿Se eliminara de forma permanente este producto:"+codigo+"?", "Confirmar eliminación",JOptionPane.YES_NO_OPTION);
+      
+      if (confirmacion == JOptionPane.YES_OPTION){
+          try{
+              negocio.EliminarProducto(codigo);
+              cargarTabla();
+              JOptionPane.showMessageDialog(this, "Producto eliminado correctamente.");
+          }catch (Exception e){
+             JOptionPane.showMessageDialog(this, "Error al eliminar."); 
+          }
+      }
+      
+    }//GEN-LAST:event_btnEliminarActionPerformed
 //metodo para cargar la tabla
     public void cargarTabla(){
         modelo = (DefaultTableModel) ListaProductos.getModel();
@@ -133,6 +161,16 @@ public class ListaPanel extends javax.swing.JPanel {
         }
 
     }
+    public void editarSeleccionado(){
+        btnEditarActionPerformed(null);
+    }
+    public void eliminarSeleccionado(){
+        btnEliminarActionPerformed(null);
+    }
+    public void ordenarPorNombre(){
+        negocio.getLista().sort(java.util.Comparator.comparing(Producto::getNombre));
+        cargarTabla();
+    }  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ListaProductos;
