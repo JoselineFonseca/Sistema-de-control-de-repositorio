@@ -1,1 +1,3 @@
 # Sistema-de-control-de-repositorio
+
+Es una aplicacion que permite gestionar un inventario, la primer pestaña donde podemos agregar productos con la cantidad, precio, nombre, descripcion y podemos guardar editar o eliminar, la segunda pestaña tiene una lista de productos donde podemos visualizar todos los productos del inventario podemos ordenar el inventario, y en la ultima pestaña de las estadisticas nos calcula el valor total de los productos, cantidad, cuantos tenemos disponibles y los que no estan disponibles, el precio mayor y menor del producto, podemos exportar los datos o generar un grafico 
