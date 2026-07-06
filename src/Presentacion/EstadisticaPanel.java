@@ -13,6 +13,9 @@ import Negocio.ProductoNegocio;
 import Modelo.Producto;
 import Repositorio.ProductoRepositorio;
 import java.util.List;
+
+
+
 public class EstadisticaPanel extends javax.swing.JPanel {
     private ProductoNegocio negocio;
 
@@ -24,8 +27,10 @@ public class EstadisticaPanel extends javax.swing.JPanel {
         initComponents();
     
         txtTotalProductos.setEditable(false);
-        txtCantidadTotal.setEditable(false);
-        txtValor.setEditable(false);
+        txtProductosSi.setEditable(false);
+        txtValorTotal.setEditable(false);
+        
+       
          
     }
 
@@ -39,23 +44,31 @@ public class EstadisticaPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtTotalProductos = new javax.swing.JTextField();
-        txtCantidadTotal = new javax.swing.JTextField();
-        txtValor = new javax.swing.JTextField();
+        txtProductosSi = new javax.swing.JTextField();
+        txtValorTotal = new javax.swing.JTextField();
         btnActualizar = new javax.swing.JButton();
         btnExportar = new javax.swing.JButton();
         btnGrafico = new javax.swing.JButton();
+        txtResumen = new javax.swing.JScrollPane();
+        TxtResumen = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtUnidadesAlmacenadas = new javax.swing.JTextField();
+        txtProductosNo = new javax.swing.JTextField();
+        txtProductoMenor = new javax.swing.JTextField();
+        txtProductoMayor = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel1.setText("Total de productos");
-
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setText("Cantidad total");
+        jLabel1.setText("Total de productos:");
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setText("Valor");
+        jLabel3.setText("Valor total del inventario:");
 
         txtTotalProductos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtTotalProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -64,9 +77,9 @@ public class EstadisticaPanel extends javax.swing.JPanel {
             }
         });
 
-        txtCantidadTotal.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtProductosSi.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        txtValor.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtValorTotal.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         btnActualizar.setBackground(new java.awt.Color(153, 153, 153));
         btnActualizar.setText("Actualizar");
@@ -92,30 +105,79 @@ public class EstadisticaPanel extends javax.swing.JPanel {
             }
         });
 
+        TxtResumen.setColumns(20);
+        TxtResumen.setRows(5);
+        txtResumen.setViewportView(TxtResumen);
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel4.setText("Productos disponibles:");
+
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel5.setText("Produuctos no disponibles:");
+
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel6.setText("Unidades almacenadas:");
+
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel7.setText("Producto con mayor precio");
+
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel8.setText("Producto con menor precio");
+
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel9.setText("Productos por categoría");
+
+        txtUnidadesAlmacenadas.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        txtProductosNo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        txtProductoMenor.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        txtProductoMayor.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel7))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtTotalProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                            .addComponent(txtCantidadTotal)
-                            .addComponent(txtValor)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtProductoMayor, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTotalProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtProductosSi, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtProductosNo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUnidadesAlmacenadas, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnActualizar)
-                        .addGap(22, 22, 22)
-                        .addComponent(btnExportar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnActualizar)
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtProductoMenor, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(txtResumen, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(jLabel9)))
+                .addContainerGap(95, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnExportar)
+                .addGap(18, 18, 18)
                 .addComponent(btnGrafico)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,21 +185,43 @@ public class EstadisticaPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtTotalProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtTotalProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtProductosSi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtProductosNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtUnidadesAlmacenadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtProductoMayor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtProductoMenor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtResumen)))
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtCantidadTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGrafico)
                     .addComponent(btnExportar)
-                    .addComponent(btnActualizar)
-                    .addComponent(btnGrafico))
-                .addGap(108, 108, 108))
+                    .addComponent(btnActualizar))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -153,13 +237,49 @@ public class EstadisticaPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "No hay productos registrados para calcular estadísticas.", "Lista vacía", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        int totalProductos = lista.size ();
-        int cantidadTotal = lista.stream().mapToInt(Producto::getCantidad).sum();               
-        double valorTotal = lista.stream().mapToDouble(p->p.getCantidad()*p.getPrecio()).sum();
         
+        int totalProductos = lista.size ();
+        /////////////////////////////////////
+        long disponibles=lista.stream().filter(Producto::isDisponible).count();
+        //////////////////////////////////////
+        long nodisponibles=lista.stream().filter(p-> !p.isDisponible()).count();
+        ////////////////////////////////////////
+        int unidades = lista.stream().mapToInt(Producto::getCantidad).sum();
+        ////////////////////////////////////////
+         double valorTotal = lista.stream().mapToDouble(p->p.getCantidad()*p.getPrecio()).sum();
+         //////////////////////////////////////////
+         Producto mayorPrecio = lista.stream().max(java.util.Comparator.comparing(Producto::getPrecio)).orElse(null);
+         ///////////////////////////////////////////////
+          Producto menorPrecio = lista.stream().min(java.util.Comparator.comparing(Producto::getPrecio)).orElse(null);
+          //////////////////////////////////////////////
+          java.util.Map<String,Long> porCategoria = lista.stream().collect(java.util.stream.Collectors.groupingBy(Producto::getCategoria,java.util.stream.Collectors.counting()));
+        ///////////////////////////////////////  
         txtTotalProductos.setText(String.valueOf(totalProductos));
-        txtCantidadTotal.setText(String.valueOf(cantidadTotal));
-        txtValor.setText(String.format("%.2f",valorTotal));
+        txtProductosSi.setText(String.valueOf(disponibles));
+        txtProductosNo.setText(String.valueOf(nodisponibles));
+        txtValorTotal.setText(String.format("%.2f",valorTotal));           txtUnidadesAlmacenadas.setText(String.valueOf(unidades));          txtValorTotal.setText(String.format("%.2f",valorTotal));
+        
+        txtProductoMayor.setText(
+                mayorPrecio!=null
+                ?mayorPrecio.getNombre()+
+                "(₡" + mayorPrecio.getPrecio()+")":"N/A"); 
+        
+        txtProductoMenor.setText(menorPrecio!=null 
+        ?menorPrecio.getNombre()+"(₡"+menorPrecio.getPrecio()+")":"N/A");
+           
+       StringBuilder categorias = new StringBuilder();
+       categorias.append("Productos por categoría:\n\n");      
+       porCategoria.forEach((categoria,cantidad)->
+       categorias.append("°").append(categoria)
+       .append(":").
+       append(cantidad).
+       append("\n"));
+ 
+       
+       TxtResumen.setLineWrap(true);
+       TxtResumen.setWrapStyleWord(true);
+       TxtResumen.setText(categorias.toString());
+
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
@@ -177,23 +297,73 @@ public class EstadisticaPanel extends javax.swing.JPanel {
     private void btnGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraficoActionPerformed
         // TODO add your handling code here:
         List<Producto> lista = negocio.getLista();
+        
         if (lista== null|| lista.isEmpty()){
-            JOptionPane.showMessageDialog(this, "No hay productos para generar gráfico.", "Lista vacía", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No hay productos para generar gráfico.", "Lista vacía",
+            JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-         JOptionPane.showMessageDialog(this,"Gráfico estadístico exportado correctamente", "Accíon completa", JOptionPane.INFORMATION_MESSAGE);
+        
+        java.util.Map<String,Long> porCategoria = lista.stream().collect(java.util.stream.Collectors.groupingBy(Producto :: getCategoria,java.util.stream.Collectors.counting()));
+        
+        javax.swing.JDialog graficoDialog = new javax.swing.JDialog();
+        graficoDialog.setTitle ("Gráfico de productos por categoría");
+        graficoDialog.setSize(700,400);
+        graficoDialog.setLocationRelativeTo(this);
+        
+        javax.swing.JPanel panelGrafico = new javax.swing.JPanel(){
+        @Override
+        protected void paintComponent(java.awt.Graphics g){
+                super.paintComponent(g);
+                int x = 50;
+                int yBase=getHeight()-50;
+                int anchoBarra=60;
+                int maxAltura = 200;
+                
+                long max = porCategoria.values().stream().mapToLong(Long::longValue).max().orElse(1);
+                
+                for (var entry : porCategoria.entrySet()){
+                    String categoria =entry.getKey();
+                    long cantidad = entry.getValue();
+                    
+                    int altura = ( int)((cantidad/ (double)max)* maxAltura);
+                    g.setColor(new java.awt.Color(100,150,255));
+                    g.fillRect(x, yBase - altura, anchoBarra,altura);
+                    g.setColor(java.awt.Color.BLACK);
+                    g.drawString(categoria, x, yBase +15);
+                    g.drawString(String.valueOf(cantidad),x+20,yBase-altura-5);
+                    x+=anchoBarra+40;
+                }
+                g.setFont(new java.awt.Font("Arial",java.awt.Font.BOLD,16));
+                g.drawString("Productos por categoría", getWidth()/2-100,30);
+            }
+            };
+            graficoDialog.add(panelGrafico);
+            graficoDialog.setVisible(true);
+   
     }//GEN-LAST:event_btnGraficoActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea TxtResumen;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnExportar;
     private javax.swing.JButton btnGrafico;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtCantidadTotal;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField txtProductoMayor;
+    private javax.swing.JTextField txtProductoMenor;
+    private javax.swing.JTextField txtProductosNo;
+    private javax.swing.JTextField txtProductosSi;
+    private javax.swing.JScrollPane txtResumen;
     private javax.swing.JTextField txtTotalProductos;
-    private javax.swing.JTextField txtValor;
+    private javax.swing.JTextField txtUnidadesAlmacenadas;
+    private javax.swing.JTextField txtValorTotal;
     // End of variables declaration//GEN-END:variables
 }

@@ -159,8 +159,8 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TabMenu)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(btnNuevo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGuardar)
@@ -172,16 +172,13 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btnExportar)
                 .addGap(35, 35, 35)
                 .addComponent(btnEliminar)
-                .addContainerGap(129, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(TabMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 254, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(TabMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
-                .addGap(12, 12, 12)
+                .addComponent(TabMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo)
                     .addComponent(btnGuardar)
@@ -189,7 +186,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(btnOrdenar)
                     .addComponent(btnExportar)
                     .addComponent(btnEliminar))
-                .addGap(23, 23, 23))
+                .addGap(56, 56, 56))
         );
 
         TabMenu.getAccessibleContext().setAccessibleName("menu");
