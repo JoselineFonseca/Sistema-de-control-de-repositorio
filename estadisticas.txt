@@ -1,0 +1,3 @@
+Total de productos:2
+Cantidad total:30
+Valor total:37500.0
